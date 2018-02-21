@@ -4,8 +4,8 @@
 /// </summary>
 public enum CellType
 {
-    WALL = '#',
-    GROUND = '.',
-    PLAYER = 'Ô',
-    INVIEW = '~'
+    WALL,
+    GROUND,
+    PLAYER,
+    INVIEW
 }

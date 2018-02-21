@@ -24,8 +24,14 @@ namespace RogueLikeEngine
                 dungeon.CreateDungeonScenery();
                 dungeon.LogDungeon();
                 Console.SetCursorPosition(5, 29);
-                Console.Write("The Ancient Location of doomed adventurers"); Play();
+                Console.Write("The Ancient Location of doomed adventurers");
+
+                Console.SetCursorPosition(66, 0);
+                Console.Write("Location: " + dungeon.Player.Location + "  ");
+
+                Play();
             }
+
             Play();
         }
 

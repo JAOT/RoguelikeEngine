@@ -4,6 +4,8 @@ using System;
 using DungeonEngine.Entities;
 using DungeonEngine.DungeonGenerator.CellInfo;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonEngine.DungeonGenerator
 {
@@ -45,7 +47,7 @@ namespace DungeonEngine.DungeonGenerator
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    DungeonCells[x, y] = new Cell(CellType.WALL, x, y);
+                    DungeonCells[x, y] = new Cell(CellType.WALL, x, y, "#");
                 }
             }
         }
@@ -69,9 +71,13 @@ namespace DungeonEngine.DungeonGenerator
 
             //From the starting position, proceed to create X number of ground cells, starting at 0
             int cellCount = 0;
+            //A list to hold cell tiles, for scenery placement
+            List<Cell> groundCells = new List<Cell>();
             
             //The variable that marks the current walker location
             Point walkerPosition = start;
+            //Carve the ground
+
             while (cellCount < CellsToGenerate)
             {
                 //Choose a direction at random
@@ -102,14 +108,23 @@ namespace DungeonEngine.DungeonGenerator
                 if (CreateGround(walkerPosition))
                 {
                     //Mark the cell as ground
-                    DungeonCells[walkerPosition.X, walkerPosition.Y].CellType = CellType.GROUND;
+                    DungeonCells[walkerPosition.X, walkerPosition.Y] = new Cell(CellType.GROUND, walkerPosition.X, walkerPosition.Y, ".");
+
+                    //Add current cell to the list
+                    groundCells.Add(new Cell(CellType.GROUND, walkerPosition.X, walkerPosition.Y, "."));
+                    
                     //Add one to cells created
                     cellCount++;
                 }
+
             }
 
-            Player = new Player(start, DungeonCells);
-            Player.Symbol = "Ô";
+            //spawn player
+            Player = new Player(start, DungeonCells)
+            {
+                Symbol = "Ô"
+            };
+            DungeonCells[start.X, start.Y] = new Cell(CellType.PLAYER, start.Y, start.Y, "Õ");
         }
 
         /// <summary>
@@ -131,24 +146,7 @@ namespace DungeonEngine.DungeonGenerator
                 string line = "";
                 for (int x = 0; x < Width; x++)
                 {
-                    switch (DungeonCells[x, y].CellType)
-                    {
-                        case CellType.WALL:
-                            Debug.Write(Enum.GetName(CellType.WALL.GetType(), CellType.WALL));
-                            line += "#";
-                            break;
-                        case CellType.GROUND:
-                            line += ".";
-                            break;
-                        case CellType.PLAYER:
-                            line += Player.Symbol;
-                            break;
-                        case CellType.INVIEW:
-                            line += "*";
-                            break;
-                        default:
-                            break;
-                    }
+                    line += DungeonCells[x, y].Symbol;
                 }
                 Console.WriteLine(line);
             }
