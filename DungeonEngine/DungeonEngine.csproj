@@ -40,11 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="DungeonGenerator\Cell.cs" />
-    <Compile Include="DungeonGenerator\CellType.cs" />
+    <Compile Include="DungeonGenerator\CellInfo\Cell.cs" />
+    <Compile Include="DungeonGenerator\CellInfo\CellType.cs" />
     <Compile Include="DungeonGenerator\Direction.cs" />
-    <Compile Include="DungeonGenerator\DungeonGenerator.cs" />
+    <Compile Include="DungeonGenerator\Dungeon.cs" />
+    <Compile Include="Entities\NPC.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Worm.cs" />
     <Compile Include="FOV\FOVCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structs\Point.cs" />

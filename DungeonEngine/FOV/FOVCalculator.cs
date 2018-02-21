@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DungeonEngine.DungeonGenerator;
+using DungeonEngine.DungeonGenerator.CellInfo;
 using DungeonEngine.Structs;
 
 namespace DungeonEngine.FOV
@@ -30,7 +30,7 @@ namespace DungeonEngine.FOV
                     //are we inside the circle (using diameter)
                     if (distance < diameter)
                     {
-                        if ((Dungeon[topLeftX + x, topLeftY + y].CellType != CellType.START) && (Dungeon[topLeftX + x, topLeftY + y].CellType != CellType.WALL))
+                        if ((Dungeon[topLeftX + x, topLeftY + y].CellType != CellType.PLAYER) && (Dungeon[topLeftX + x, topLeftY + y].CellType != CellType.WALL))
 
                         Dungeon[topLeftX + x, topLeftY + y].CellType = CellType.INVIEW;
                     }

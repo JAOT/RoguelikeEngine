@@ -8,14 +8,36 @@ namespace RogueLikeEngine
 {
     class Program
     {
+        static Dungeon dungeon;
         static void Main(string[] args)
         {
-            DungeonGenerator dungeonGenerator = new DungeonGenerator();
-            dungeonGenerator.CreateDungeonRoom(152, 36);
-            dungeonGenerator.CellsToGenerate = 1500;
-            dungeonGenerator.CreateDungeonScenery();
-            dungeonGenerator.LogDungeon();
-            if (Console.ReadKey() == ConsoleKeyInfo(ConsoleKey.Enter))
+            CreateDungeon();
+        }
+
+        private static void CreateDungeon( )
+        {
+            ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+            if (keyPressed.Key == ConsoleKey.Enter)
+            {
+                dungeon = new Dungeon(64, 28, 1200);
+                dungeon.CreateDungeonScenery();
+                dungeon.LogDungeon();
+                Console.SetCursorPosition(5, 29);
+                Console.Write("The Ancient Location of doomed adventurers"); Play();
+            }
+            Play();
+        }
+
+        private static void Play()
+        {
+
+            dungeon.Player.Location = dungeon.Player.GetInput();
+            Console.SetCursorPosition(66, 0);
+            Console.Write("Location: " + dungeon.Player.Location + "  ");
+
+            Play();
+
         }
     }
 }

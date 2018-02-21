@@ -10,10 +10,16 @@ namespace DungeonEngine.Structs
     {
         public int X { get; set; }
         public int Y { get; set; }
+
         public Point(int x, int y) : this()
         {
             X = x;
             Y = y;
+        }
+        public override string ToString()
+        {
+            var str = "X: " + X + " Y:" + Y;
+            return str;
         }
     }
 }
